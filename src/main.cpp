@@ -135,7 +135,7 @@ int main() {
   glBindVertexArray(va_id);
 
   // Create and compile our GLSL program from the shaders
-  Program program("src/shaders/basic.vertex", "src/shaders/basic.fragment");
+  Program program("src/shaders/basic.vert", "src/shaders/basic.frag");
 
   // static const GLfloat g_vertex_buffer_data[] = {
   //     -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
