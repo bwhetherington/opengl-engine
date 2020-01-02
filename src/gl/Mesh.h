@@ -20,7 +20,7 @@ class Mesh {
   void bindColorBuffer() const;
 
  public:
-  Mesh(const std::vector<glm::vec4>& vertices,
+  Mesh(const std::vector<glm::vec3>& vertices,
        const std::vector<glm::vec4>& colors);
   virtual ~Mesh();
 

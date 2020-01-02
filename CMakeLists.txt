@@ -12,15 +12,17 @@ else()
         message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-# find_package(OpenGL REQUIRED)
 find_package(glew REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
 
 find_package(glfw3 REQUIRED)
+include_directories(${GLFW3_INCLUDE_DIRS})
 
 find_package(glm REQUIRED)
-# include_directories(${GLM_INCLUDE_DIRS})
-# link_directories(${GLM_LIBRARY_DIRS})
-# add_definitions(${GLM_DEFINITIONS})
+include_directories(${GLM_INCLUDE_DIRS})
+
+find_package(PNG REQUIRED)
+include_directories(${PNG_INCLUDE_DIR})
 
 include_directories(
   ./src/
@@ -44,10 +46,10 @@ add_executable(voxel
   src/gl/Mesh.cpp
   src/gl/Transform.cpp
   src/fs/object.cpp
+  src/util/strutil.cpp
 )
 
-target_include_directories(voxel PRIVATE ${OPENGL_INCLUDE_DIR})
-target_link_libraries(voxel glfw GLEW::GLEW glm)
+target_link_libraries(voxel glfw GLEW::GLEW glm ${PNG_LIBRARY})
 
 if (APPLE)
   target_link_libraries(voxel "-framework OpenGL")

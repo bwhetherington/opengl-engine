@@ -18,7 +18,7 @@ void writeBuffer(GLuint buffer, const std::vector<T> data) {
                GL_STATIC_DRAW);
 }
 
-Mesh::Mesh(const std::vector<glm::vec4>& vertices,
+Mesh::Mesh(const std::vector<glm::vec3>& vertices,
            const std::vector<glm::vec4>& colors) {
   m_vertex_count = vertices.size();
 
@@ -33,7 +33,6 @@ Mesh::Mesh(const std::vector<glm::vec4>& vertices,
 Mesh::~Mesh() {
   glDeleteBuffers(1, &m_vertex_vbo);
   glDeleteBuffers(1, &m_color_vbo);
-  std::cout << "Mesh::~Mesh()" << std::endl;
 }
 
 void Mesh::bindVertexBuffer() const {
@@ -47,7 +46,7 @@ void Mesh::bindColorBuffer() const {
 void Mesh::draw(const Program& program, const glm::mat4& pv) {
   // Vertices
   bindVertexBuffer();
-  glVertexAttribPointer(0, 4, GL_FLOAT, false, 0, 0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
   glEnableVertexAttribArray(0);
 
   // Colors
@@ -61,7 +60,7 @@ void Mesh::draw(const Program& program, const glm::mat4& pv) {
   auto mvp_location = program.getUniformLocation("mvp");
   glUniformMatrix4fv(mvp_location, 1, false, &mat[0][0]);
 
-  glDrawArrays(GL_TRIANGLES, 0, m_vertex_count * sizeof(glm::vec4));
+  glDrawArrays(GL_TRIANGLES, 0, m_vertex_count);
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
